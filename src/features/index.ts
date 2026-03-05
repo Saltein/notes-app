@@ -1,1 +1,1 @@
-export { AuthForm } from './auth/ui/AuthForm/AuthForm'
+export { AuthModeSwitcher } from "./auth/ui/AuthModeSwitcher/AuthModeSwitcher";

@@ -7,6 +7,7 @@ import { styles } from "../shared";
 import { AuthPage, NotesPage } from "../pages";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { PaperProvider } from "react-native-paper";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,18 +18,26 @@ export default function App() {
         <Provider store={store}>
             <StatusBar style="auto" />
             <SafeAreaView style={[s.container, { height: height }]}>
-                <View style={s.innerContainer}>
-                    <NavigationContainer>
-                        <Stack.Navigator
-                            screenOptions={{
-                                headerShown: false,
-                            }}
-                        >
-                            <Stack.Screen name="Auth" component={AuthPage} />
-                            <Stack.Screen name="Notes" component={NotesPage} />
-                        </Stack.Navigator>
-                    </NavigationContainer>
-                </View>
+                <PaperProvider>
+                    <View style={s.innerContainer}>
+                        <NavigationContainer>
+                            <Stack.Navigator
+                                screenOptions={{
+                                    headerShown: false,
+                                }}
+                            >
+                                <Stack.Screen
+                                    name="Auth"
+                                    component={AuthPage}
+                                />
+                                <Stack.Screen
+                                    name="Notes"
+                                    component={NotesPage}
+                                />
+                            </Stack.Navigator>
+                        </NavigationContainer>
+                    </View>
+                </PaperProvider>
             </SafeAreaView>
         </Provider>
     );

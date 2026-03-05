@@ -1,5 +1,4 @@
 export interface RegisterParams {
-    id: 0;
     email: string;
     nickname: string;
     password: string;

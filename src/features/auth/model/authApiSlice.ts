@@ -9,7 +9,7 @@ import {
 export const authApi = createApi({
     reducerPath: "authApi", // Ключ в store
     baseQuery: fetchBaseQuery({
-        baseUrl: "http://localhost:3001/api/",
+        baseUrl: "http://192.168.3.120:3001/api/",
     }),
     endpoints: (builder) => ({
         register: builder.mutation<RegisterResponse, RegisterParams>({
@@ -21,7 +21,7 @@ export const authApi = createApi({
         }),
         login: builder.mutation<LoginResponse, LoginParams>({
             query: (body) => ({
-                url: "login",
+                url: "users/login",
                 method: "POST",
                 body: body,
             }),

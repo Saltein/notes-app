@@ -1,14 +1,31 @@
 import { Pressable, View } from "react-native";
 import { LoginForm } from "../LoginForm/LoginForm";
 import { s } from "./AuthModeSwitcherStyles";
-import { DefaultText } from "../../../../shared";
-import { useState } from "react";
+import { DefaultText, Warning } from "../../../../shared";
+import { useEffect, useState } from "react";
 import { RegisterForm } from "../RegisterForm/RegisterForm";
+import { Portal } from "react-native-paper";
 
-type AuthMode = "login" | "register";
+export type AuthMode = "login" | "register";
 
 export function AuthModeSwitcher() {
     const [mode, setMode] = useState<AuthMode>("login");
+    const [notice, setNotice] = useState("");
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        if (!notice) return;
+
+        setIsVisible(true);
+
+        const timer = setTimeout(() => {
+            setIsVisible(false);
+        }, 5000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [notice]);
 
     return (
         <View style={s.container}>
@@ -34,7 +51,24 @@ export function AuthModeSwitcher() {
                     </DefaultText>
                 </Pressable>
             </View>
-            {mode === "login" ? <LoginForm /> : <RegisterForm />}
+            {mode === "login" ? (
+                <LoginForm />
+            ) : (
+                <RegisterForm setMode={setMode} setNotice={setNotice} />
+            )}
+
+            {isVisible && (
+                <Portal>
+                    <View
+                        style={{
+                            width: "100%",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Warning type="info" content={notice} />
+                    </View>
+                </Portal>
+            )}
         </View>
     );
 }

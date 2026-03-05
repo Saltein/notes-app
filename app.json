@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ntoes-app",
-    "slug": "ntoes-app",
+    "name": "notes-app",
+    "slug": "notes-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,16 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.saltein.notesapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e54bbc5b-05cf-484f-b1f4-2121925b854d"
+      }
     }
   }
 }

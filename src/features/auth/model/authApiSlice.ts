@@ -7,7 +7,7 @@ import {
 } from "./types";
 import { tokenStorage } from "../../../shared/lib/storage/tokenStorage";
 
-const baseUrl = "http://192.168.3.120:3001/api/";
+const baseUrl = process.env.EXPO_BASE_URL;
 
 const baseQuery = fetchBaseQuery({
     baseUrl,
@@ -23,14 +23,14 @@ const baseQuery = fetchBaseQuery({
 
 export const authApi = createApi({
     reducerPath: "authApi",
-    baseQuery: baseQuery,
+    baseQuery,
     tagTypes: ["Auth"],
     endpoints: (builder) => ({
         register: builder.mutation<RegisterResponse, RegisterParams>({
             query: (body) => ({
                 url: "users",
                 method: "POST",
-                body: body,
+                body,
             }),
         }),
         login: builder.mutation<LoginResponse, LoginParams>({

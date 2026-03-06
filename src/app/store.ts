@@ -1,14 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { searchReducer } from "../features/search/model/slice";
 import { authApi } from "../features/auth/model/authApiSlice";
+import { notesApi } from "../features/notes/model/notesApiSlice";
 
 export const store = configureStore({
     reducer: {
         search: searchReducer,
         [authApi.reducerPath]: authApi.reducer,
+        [notesApi.reducerPath]: notesApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(authApi.middleware),
+        getDefaultMiddleware().concat(authApi.middleware, notesApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

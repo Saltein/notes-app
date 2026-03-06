@@ -7,7 +7,7 @@ import {
 } from "./types";
 import { tokenStorage } from "../../../shared/lib/storage/tokenStorage";
 
-const baseUrl = process.env.EXPO_BASE_URL;
+const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
 
 const baseQuery = fetchBaseQuery({
     baseUrl,

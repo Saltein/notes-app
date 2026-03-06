@@ -8,7 +8,7 @@ import {
     UpdateNoteResponse,
 } from "./types";
 
-const baseUrl = process.env.EXPO_BASE_URL;
+const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
 
 const baseQuery = fetchBaseQuery({
     baseUrl,

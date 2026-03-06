@@ -3,7 +3,7 @@ import { DefaultTextInput, MainButton, Warning } from "../../../../shared";
 import { useState } from "react";
 import { s } from "../FormStyles";
 import { Portal } from "react-native-paper";
-import { useLoginMutation } from "../../model/authApiSlice";
+import { useGetMeMutation, useLoginMutation } from "../../model/authApiSlice";
 import { validateEmail } from "../../utils/validateEmail";
 import { useNoticeVisibility } from "../../../../shared/hooks/useNoticeVisibility";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,6 +17,7 @@ export function LoginForm() {
     const isVisible = useNoticeVisibility(textError, trigger);
 
     const [login, { isLoading }] = useLoginMutation();
+    const [getMe] = useGetMeMutation();
 
     async function handleLogin() {
         setTrigger((prev) => prev + 1);
@@ -35,6 +36,7 @@ export function LoginForm() {
                 if (result) {
                     console.log("Response: ", JSON.stringify(result));
                     tokenStorage.setToken(result.token);
+                    getMe();
                     setTextError("");
                 }
             } catch (err) {

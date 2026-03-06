@@ -6,9 +6,10 @@ import MasonryList from "@react-native-seoul/masonry-list";
 import { styles } from "../../shared";
 import AddIcon from "../../shared/assets/icons/add.svg";
 import { Header } from "../../widgets";
-import { useGetMeQuery } from "../../features/auth/model/authApiSlice";
+import { useGetMeMutation } from "../../features/auth/model/authApiSlice";
 import { Portal } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
+import { useEffect } from "react";
 
 const notes: NoteCardItem[] = [
     {
@@ -89,7 +90,11 @@ const notes: NoteCardItem[] = [
 ];
 
 export function NotesPage() {
-    const { data } = useGetMeQuery();
+    const [getMe, { data }] = useGetMeMutation();
+
+    useEffect(() => {
+        getMe();
+    }, []);
 
     return (
         <View style={s.container}>

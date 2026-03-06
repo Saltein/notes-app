@@ -25,7 +25,6 @@ const baseQuery = fetchBaseQuery({
 export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery,
-    tagTypes: ["Auth"],
     endpoints: (builder) => ({
         register: builder.mutation<RegisterResponse, RegisterParams>({
             query: (body) => ({
@@ -40,7 +39,6 @@ export const authApi = createApi({
                 method: "POST",
                 body,
             }),
-            invalidatesTags: ["Auth"],
         }),
         logout: builder.mutation<void, void>({
             query: () => ({
@@ -48,9 +46,11 @@ export const authApi = createApi({
                 method: "GET",
             }),
         }),
-        getMe: builder.query<LoginResponse, void>({
-            query: () => "users/auth-check",
-            providesTags: ["Auth"],
+        getMe: builder.mutation<LoginResponse, void>({
+            query: () => ({
+                url: "users/auth-check",
+                method: "GET",
+            }),
         }),
     }),
 });
@@ -59,7 +59,7 @@ export const {
     useRegisterMutation,
     useLoginMutation,
     useLogoutMutation,
-    useGetMeQuery,
+    useGetMeMutation,
 } = authApi;
 
 export const authReducer = authApi.reducer;

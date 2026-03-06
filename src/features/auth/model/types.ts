@@ -17,10 +17,15 @@ export interface LoginParams {
     password: string;
 }
 
-export interface LoginResponse {
+export type User = {
     id: 0;
     email: string;
     nickname: string;
     created_at: string;
     updated_at: string;
+};
+
+export interface LoginResponse {
+    user: User;
+    token: string;
 }

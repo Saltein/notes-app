@@ -7,6 +7,7 @@ import { useLoginMutation } from "../../model/authApiSlice";
 import { validateEmail } from "../../utils/validateEmail";
 import { useNoticeVisibility } from "../../../../shared/hooks/useNoticeVisibility";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { tokenStorage } from "../../../../shared/lib/storage/tokenStorage";
 
 export function LoginForm() {
     const [email, setEmail] = useState("");
@@ -32,8 +33,9 @@ export function LoginForm() {
                     password: password,
                 }).unwrap();
                 if (result) {
+                    console.log("Response: ", JSON.stringify(result));
+                    tokenStorage.setToken(result.token);
                     setTextError("");
-                    setTextError(JSON.stringify(result));
                 }
             } catch (err) {
                 const error = JSON.stringify(err);

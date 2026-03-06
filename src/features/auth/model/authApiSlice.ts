@@ -5,12 +5,20 @@ import {
     RegisterParams,
     RegisterResponse,
 } from "./types";
+import { tokenStorage } from "../../../shared/lib/storage/tokenStorage";
 
 const baseUrl = "http://192.168.3.120:3001/api/";
 
 const baseQuery = fetchBaseQuery({
     baseUrl,
-    credentials: "include",
+    prepareHeaders: async (headers) => {
+        const token = await tokenStorage.getToken();
+        if (token) {
+            headers.set("Authorization", `Bearer ${token}`);
+        }
+        headers.set("X-Client-Type", "mobile");
+        return headers;
+    },
 });
 
 export const authApi = createApi({

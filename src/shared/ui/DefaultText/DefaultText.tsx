@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextProps } from "react-native";
-import { styles } from "../..";
+import { styles } from "../../styles/styles";
 
 export const DefaultText = ({ style, ...props }: TextProps) => {
     return (

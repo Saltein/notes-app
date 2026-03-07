@@ -10,7 +10,12 @@ export const s = StyleSheet.create({
         borderWidth: 1,
     },
 
-    text: {
+    title: {
+        fontWeight: 600,
+        fontSize: 16,
+    },
+
+    content: {
         flexWrap: "wrap",
     },
 });

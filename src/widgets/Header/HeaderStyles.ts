@@ -9,7 +9,7 @@ export const s = StyleSheet.create({
         paddingVertical: styles.spacing.xs,
         flexDirection: "row",
         alignItems: "center",
-        gap: styles.spacing.sm,
+        gap: styles.spacing.xs,
         marginBottom: styles.spacing.sm,
     },
 

@@ -1,27 +1,17 @@
+import { Note } from "../../../entities/note/model/types";
+
 export interface CreateNoteParams {
     title: string;
     content: string;
     color: string;
 }
 
-export interface CreateNoteResponse {
-    id: number;
-    user_id: number;
-    title: string;
-    content: string;
-    color: string;
-    created_at: string;
-    updated_at: string;
-}
+export interface CreateNoteResponse extends Note {}
 
-export interface GetOneNoteResponse {
-    id: 0;
-    user_id: 0;
-    title: string;
-    content: string;
-    color: string;
-    created_at: string;
-    updated_at: string;
+export interface GetOneNoteResponse extends Note {}
+
+export interface GetMyNotesResponse {
+    data: Note[];
 }
 
 export interface DeleteNoteResponse {
@@ -35,7 +25,7 @@ export interface UpdateNoteParams {
 }
 
 export interface UpdateNoteResponse {
-    id: number,
+    id: number;
     title?: string;
     content?: string;
     color?: string;

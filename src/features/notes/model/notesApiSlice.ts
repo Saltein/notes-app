@@ -1,42 +1,58 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
     CreateNoteParams,
     CreateNoteResponse,
     DeleteNoteResponse,
+    GetMyNotesResponse,
     GetOneNoteResponse,
     UpdateNoteParams,
     UpdateNoteResponse,
 } from "./types";
+import { tokenStorage } from "../../../shared/lib/storage/tokenStorage";
 
 const baseUrl = process.env.EXPO_PUBLIC_BASE_URL;
 
 const baseQuery = fetchBaseQuery({
     baseUrl,
+    prepareHeaders: async (headers) => {
+        const token = await tokenStorage.getToken();
+        if (token) {
+            headers.set("Authorization", `Bearer ${token}`);
+        }
+        headers.set("X-Client-Type", "mobile");
+
+        return headers;
+    },
 });
 
 export const notesApi = createApi({
     reducerPath: "notesApi",
     baseQuery,
     endpoints: (builder) => ({
-        create: builder.mutation<CreateNoteResponse, CreateNoteParams>({
+        createNote: builder.mutation<CreateNoteResponse, CreateNoteParams>({
             query: (body) => ({
                 url: "notes",
                 method: "POST",
                 body,
             }),
         }),
-        getOne: builder.query<GetOneNoteResponse, void>({
+        getOneNote: builder.query<GetOneNoteResponse, void>({
             query: (id) => ({
                 url: `notes/${id}`,
             }),
         }),
-        delete: builder.mutation<DeleteNoteResponse, void>({
+        getMyNotes: builder.query<GetMyNotesResponse, void>({
+            query: () => ({
+                url: "notes",
+            }),
+        }),
+        deleteNote: builder.mutation<DeleteNoteResponse, void>({
             query: (id) => ({
                 url: `notes/${id}`,
                 method: "DELETE",
             }),
         }),
-        update: builder.mutation<UpdateNoteResponse, UpdateNoteParams>({
+        updateNote: builder.mutation<UpdateNoteResponse, UpdateNoteParams>({
             query: (id) => ({
                 url: `notes/${id}`,
                 method: "PATCH",
@@ -44,3 +60,14 @@ export const notesApi = createApi({
         }),
     }),
 });
+
+export const {
+    useCreateNoteMutation,
+    useGetOneNoteQuery,
+    useGetMyNotesQuery,
+    useDeleteNoteMutation,
+    useUpdateNoteMutation,
+} = notesApi;
+
+export const notesReducer = notesApi.reducer;
+export const notesMiddleware = notesApi.middleware;

@@ -1,6 +1,6 @@
 export const styles = {
     colors: {
-        backgroundMain: "#f5f5f5",
+        backgroundMain: "#ffffff",
         backgroundSurface: "#74c3ff33",
         textMain: "#74c3ff",
         textMuted: "#74c3ff99",

@@ -11,6 +11,8 @@ export const s = StyleSheet.create({
         borderColor: styles.colors.error,
         borderRadius: styles.radius.md,
         elevation: 6,
+
+        zIndex: 100,
     },
 
     logoutButton: {

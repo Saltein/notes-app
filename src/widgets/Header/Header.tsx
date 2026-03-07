@@ -5,12 +5,20 @@ import SearchBar from "../../features/search/ui/SearchBar/SearchBar";
 import { LinearGradient } from "expo-linear-gradient";
 import { User } from "../../features/auth/model/types";
 import { ProfileMenu } from "./components/ProfileMenu/ProfileMenu";
+import { useState } from "react";
+import { Portal } from "react-native-paper";
 
 interface HeaderProps {
     data?: User;
 }
 
 export function Header({ data }: HeaderProps) {
+    const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+    function toggleMenuOpen() {
+        setMenuIsOpen((prev) => !prev);
+    }
+
     return (
         <View style={s.container}>
             <LinearGradient
@@ -19,17 +27,33 @@ export function Header({ data }: HeaderProps) {
                     height: "150%",
                     width: "200%",
                     position: "absolute",
-                    top: 0,
+                    top: styles.spacing.xs,
                 }}
             />
             <SearchBar />
-            <Pressable>
+            <Pressable onPress={toggleMenuOpen}>
                 <DefaultText style={s.profile}>
                     {data?.nickname ?? "Профиль"}
                 </DefaultText>
             </Pressable>
 
-            <ProfileMenu />
+            {menuIsOpen && (
+                <>
+                    <Portal>
+                        <Pressable
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                            }}
+                            onPress={() => setMenuIsOpen(false)}
+                        />
+                        <ProfileMenu />
+                    </Portal>
+                </>
+            )}
         </View>
     );
 }
